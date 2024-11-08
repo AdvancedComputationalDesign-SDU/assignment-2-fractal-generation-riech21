@@ -156,15 +156,14 @@ The recursion ends when the depth reaches zero, producing a finite fractal. By a
 
 ## Challenges and Solutions
 
-*(Discuss any challenges you faced during the assignment and how you overcame them.)*
+- **Challenge**: Ensuring Consistency with Randomness.
+  - **Solution**: Using a fixed random seed (`random.seed(0)`) ensured that the fractal structure remained consistent each time the code ran. 
 
-Example:
+- **Challenge**: Handling Edge Cases in Geometry Calculations.
+  - **Solution**: I implemented minimum and maximum constraints for angle changes and length scaling to avoid extreme values. This prevented branches from becoming too vertical or horizontal, resulting in a more balanced and stable fractal structure.
 
-- **Challenge**: Managing the growing number of line segments and ensuring they are correctly plotted.
-  - **Solution**: Stored all line segments in a list and plotted them after the recursion completed.
-
-- **Challenge**: Implementing randomness without losing the overall structure.
-  - **Solution**: Introduced randomness within controlled bounds for angles and lengths.
+- **Challenge**: Managing Color Contrast Based on Depth.
+  - **Solution**: By mapping the `recursion_depth` directly to a color in the `plt.cm.plasma` colormap, I ensured that each level had a distinct color.
 
 ---
 
