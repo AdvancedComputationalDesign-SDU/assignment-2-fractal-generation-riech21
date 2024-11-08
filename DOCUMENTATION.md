@@ -12,44 +12,65 @@
 
 ## Pseudo-Code
 
-*(Provide detailed pseudo-code explaining the logic of your program. This should clearly outline your recursive functions, parameter definitions, and how they contribute to the final fractal pattern.)*
+1. **Import Libraries**
+- Import necessary libraries (e.g., NumPy for array manipulation and Matplotlib for visualization).
 
-Example:
+2. **Set Random Seed for Reproducibility**
+- Use `random.seed()` to ensure the same fractal structure is generated every time the code runs.
 
-1. **Define Main Function `generate_fractal(start_point, angle, length, depth)`**
-   - **Inputs**:
-     - `start_point`: Tuple of coordinates (x, y).
-     - `angle`: Current angle in degrees.
-     - `length`: Length of the current line segment.
-     - `depth`: Current recursion depth.
-   - **Process**:
-     - **If** `depth` is 0:
-       - **Return** (End recursion).
-     - **Else**:
-       - Calculate `end_point` using trigonometry:
-         - `end_x = start_x + length * cos(radians(angle))`
-         - `end_y = start_y + length * sin(radians(angle))`
-       - Create a line from `start_point` to `end_point` using Shapely.
-       - **For** each branch (e.g., left and right):
-         - **Calculate** new angle:
-           - Left branch: `new_angle = angle + angle_change`
-           - Right branch: `new_angle = angle - angle_change`
-         - **Calculate** new length:
-           - `new_length = length * length_scaling_factor`
-         - **Recursive Call**:
-           - `generate_fractal(end_point, new_angle, new_length, depth - 1)`
-     - **Return** (After recursive calls).
+3. **Initialize Fractal Parameters**
+- Define initial parameters for the fractal tree:
+  - `start_x`, `start_y`: Starting coordinates at the origin (base of the tree).
+  - `initial_angle`: Initial branch angle set to 90 degrees (pointing upwards).
+  - `length`: Length of the first branch segment.
+  - `recursion_depth`: Maximum recursion depth, determining tree "height" and complexity.
+  - `max_branches`: Maximum number of branches that can emerge from each node.
 
-2. **Initialize Parameters**
-   - Set `start_point`, `initial_angle`, `initial_length`, `recursion_depth`, `angle_change`, `length_scaling_factor`.
+4. **Define Color Function**
+- Define `get_color(depth, max_depth)` function to map depth to a color gradient.
 
-3. **Call `generate_fractal` Function**
-   - Begin the fractal generation by calling `generate_fractal(start_point, initial_angle, initial_length, recursion_depth)`.
+5. **Define Recursive Branch Function**
+- Define the recursive function `draw_branch(x, y, direction, length, depth)` to generate the fractal:
+  - **Inputs:**
+    - `x`, `y`: Current coordinates of the branch start point.
+    - `direction`: Current angle of the branch in radians.
+    - `length`: Current branch length.
+    - `depth`: Current recursion depth.
+  - **Base Case:**
+    - If `depth` is 0, end recursion (return).
+  - **Calculate Endpoint:**
+    - Compute endpoint of the current branch using trigonometry:
+      - `end_x = x + length * cos(direction)`
+      - `end_y = y + length * sin(direction)`
+  - **Create Line Segment and Plot:**
+    - Define a line from `(x, y)` to `(end_x, end_y)` using `LineString`.
+    - Plot the branch with a color based on depth using `get_color()`.
+  - **Set Random Parameters:**
+    - Define `angle_change` (random angle change between branches, e.g., 20 to 40 degrees).
+    - Define `length_scaling_factor` (randomly scale branch length for each recursion, e.g., 0.6 to 0.8).
+    - Set `num_branches` to a random integer (up to `max_branches`).
+  - **Calculate New Length and Angle Distribution:**
+    - Compute `new_length = length * length_scaling_factor`.
+    - Calculate total spread of angles across branches:
+      - `total_angle = (num_branches - 1) * angle_change`
+    - Center branches around the main angle by setting `starting_angle = -total_angle / 2`.
+  - **Recursive Call for Branch Creation:**
+    - For each branch (`i` ranging from 0 to `num_branches - 1`):
+      - Calculate `branch_angle = starting_angle + i * angle_change`.
+      - Convert `branch_angle` to radians and adjust direction.
+      - Recursively call `draw_branch(end_x, end_y, direction + radians(branch_angle), new_length, depth - 1)`.
 
-4. **Visualization**
-   - Collect all the lines generated.
-   - Use Matplotlib to plot the lines.
-   - Apply any visualization enhancements (colors, line widths).
+6. **Plot Setup for Visualization**
+- Configure the plot:
+  - Define figure size using `plt.figure(figsize=(8, 8))`.
+  - Use `plt.axis('equal')` to maintain the aspect ratio.
+  - Turn off plot axes using `plt.axis('off')` for a cleaner look.
+
+7. **Generate Fractal Tree**
+- Begin the fractal generation by calling `draw_branch(start_x, start_y, radians(initial_angle), length, recursion_depth)`.
+
+8. **Display the Fractal Pattern**
+- Use `plt.show()` to render and display the generated fractal tree pattern.
 
 ---
 
@@ -70,10 +91,6 @@ The recursion ends when the depth reaches zero, producing a finite fractal. By a
 
 ## Results
 
-*(Include images of your generated fractal patterns, and discuss any observations or interesting findings.)*
-
-Example:
-
 ### Fractal Pattern 1: Basic Fractal Tree
 
 ![Fractal Tree](images/example.png)
@@ -86,7 +103,53 @@ Example:
   - The fractal tree exhibits symmetry and balance.
   - As the recursion depth increases, the level of detail in the branches increases.
 
-*(Repeat for other fractal patterns.)*
+### Fractal Pattern 2: Basic Fractal Tree
+
+![Fractal Tree](images/example.png)
+
+- **Parameters**:
+  - `angle_change`: 30°
+  - `length_scaling_factor`: 0.7
+  - `recursion_depth`: 5
+- **Observations**:
+  - The fractal tree exhibits symmetry and balance.
+  - As the recursion depth increases, the level of detail in the branches increases.
+
+### Fractal Pattern 3: Basic Fractal Tree
+
+![Fractal Tree](images/example.png)
+
+- **Parameters**:
+  - `angle_change`: 30°
+  - `length_scaling_factor`: 0.7
+  - `recursion_depth`: 5
+- **Observations**:
+  - The fractal tree exhibits symmetry and balance.
+  - As the recursion depth increases, the level of detail in the branches increases.
+
+### Fractal Pattern 4: Basic Fractal Tree
+
+![Fractal Tree](images/example.png)
+
+- **Parameters**:
+  - `angle_change`: 30°
+  - `length_scaling_factor`: 0.7
+  - `recursion_depth`: 5
+- **Observations**:
+  - The fractal tree exhibits symmetry and balance.
+  - As the recursion depth increases, the level of detail in the branches increases.
+
+### Fractal Pattern 5: Basic Fractal Tree
+
+![Fractal Tree](images/example.png)
+
+- **Parameters**:
+  - `angle_change`: 30°
+  - `length_scaling_factor`: 0.7
+  - `recursion_depth`: 5
+- **Observations**:
+  - The fractal tree exhibits symmetry and balance.
+  - As the recursion depth increases, the level of detail in the branches increases.
 
 ---
 
@@ -106,11 +169,7 @@ Example:
 
 ## References
 
-*(List any resources you used or found helpful during the assignment.)*
-
 - **Shapely Manual**: [https://shapely.readthedocs.io/en/stable/manual.html](https://shapely.readthedocs.io/en/stable/manual.html)
 - **Matplotlib Pyplot Tutorial**: [https://matplotlib.org/stable/tutorials/introductory/pyplot.html](https://matplotlib.org/stable/tutorials/introductory/pyplot.html)
 
 ---
-
-*(Feel free to expand upon these sections to fully capture your work and learning process.)*
