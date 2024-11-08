@@ -18,11 +18,17 @@ from shapely.geometry import LineString
 random.seed(0)
 
 # Define the starting parameters for the fractal tree
-start_x, start_y = 0, 0       # Starting coordinates (origin point)
+start_x, start_y = 0, 0       # Starting coordinates at the origin (base of the tree)
 initial_angle = 90            # Starting angle in degrees; 90 points the initial branch upward
 length = 10                   # Initial length of the first branch segment
 recursion_depth = 7           # Maximum recursion depth, controlling the "height" and complexity of the tree
-max_branches = 4              # Maximum number of branches per node (can vary per depth)
+max_branches = 4              # Maximum number of branches per node 
+
+# Function to define color based on recursion depth
+# Creates a smooth color gradient that varies from root to tip of the branches
+def get_color(depth, max_depth):
+    # Map the depth to a color in the plasma colormap
+    return plt.cm.plasma(depth / max_depth)
 
 # Recursive function to draw fractal branches; uses Shapely for line geometry
 def draw_branch(x, y, direction, length, depth):
@@ -38,8 +44,9 @@ def draw_branch(x, y, direction, length, depth):
     # Define a line segment from (x, y) to (end_x, end_y) using Shapely's LineString
     line = LineString([(x, y), (end_x, end_y)])
 
-    # Plot the current branch
-    plt.plot(*line.xy, color='black')  # Unpack x and y coordinates of the line
+    # Plot the current branch with a color determined by the depth (for a gradient effect)
+    color = get_color(recursion_depth - depth, recursion_depth)
+    plt.plot(*line.xy, color=color)  # Unpack x and y coordinates of the line, and plot with specified color
 
     # Randomly adjust angle change and length scaling for a more organic appearance
     angle_change = random.uniform(20, 40)  # Random angle change between branches in degrees
@@ -55,7 +62,7 @@ def draw_branch(x, y, direction, length, depth):
     total_angle = (num_branches - 1) * angle_change  # Total spread of the angles across branches
     starting_angle = -total_angle / 2  # Center branches by starting from negative and spreading to positive
 
-    # Recursively draw each branch with modified direction and reduced length
+    # Recursively draw each branch with modified direction and length
     for i in range(num_branches):
         branch_angle = starting_angle + i * angle_change
         # Convert branch angle to radians and recursively call draw_branch for each new segment
