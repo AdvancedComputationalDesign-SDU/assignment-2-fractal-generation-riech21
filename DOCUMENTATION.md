@@ -91,65 +91,66 @@ The recursion ends when the depth reaches zero, producing a finite fractal. By a
 
 ## Results
 
-### Fractal Pattern 1: Basic Fractal Tree
+### Base Fractal Tree
 
-![Fractal Tree](images/example.png)
+#### Fractal Tree 1: 
 
-- **Parameters**:
-  - `angle_change`: 30°
-  - `length_scaling_factor`: 0.7
-  - `recursion_depth`: 5
-- **Observations**:
-  - The fractal tree exhibits symmetry and balance.
-  - As the recursion depth increases, the level of detail in the branches increases.
-
-### Fractal Pattern 2: Basic Fractal Tree
-
-![Fractal Tree](images/example.png)
+![Fractal Tree 1](images/FractalTree_1.png)
 
 - **Parameters**:
-  - `angle_change`: 30°
-  - `length_scaling_factor`: 0.7
-  - `recursion_depth`: 5
+  - `recursion_depth`: 7
+  - `max_branches`: 4
 - **Observations**:
-  - The fractal tree exhibits symmetry and balance.
-  - As the recursion depth increases, the level of detail in the branches increases.
+  - As the recursion depth increases, the branches show a higher level of detail, creating a dense canopy-like structure.
+  - The gradual color transition from purple at the base to yellow at the outer branches highlights the branching levels.
 
-### Fractal Pattern 3: Basic Fractal Tree
+### Changing Recursion Depth
 
-![Fractal Tree](images/example.png)
+#### Fractal Tree 2:
+
+![Fractal Tree 2](images/FractalTree_2.png)
 
 - **Parameters**:
-  - `angle_change`: 30°
-  - `length_scaling_factor`: 0.7
-  - `recursion_depth`: 5
+  - `recursion_depth`: 12
+  - `max_branches`: 4
 - **Observations**:
-  - The fractal tree exhibits symmetry and balance.
-  - As the recursion depth increases, the level of detail in the branches increases.
+  - This tree displays a thicker and fuller appearance due to dense branch formations.
+  - It appears more organic and realistic, resembling a flowering plant or tree canopy.
 
-### Fractal Pattern 4: Basic Fractal Tree
+#### Fractal Tree 3:
 
-![Fractal Tree](images/example.png)
+![Fractal Tree 3](images/FractalTree_3.png)
 
 - **Parameters**:
-  - `angle_change`: 30°
-  - `length_scaling_factor`: 0.7
-  - `recursion_depth`: 5
+  - `recursion_depth`: 3
+  - `max_branches`: 4
 - **Observations**:
-  - The fractal tree exhibits symmetry and balance.
-  - As the recursion depth increases, the level of detail in the branches increases.
+  - This tree has a sparse structure with elongated branches, showing minimal recursion.
+  - It resembles an early branching structure, focusing on simplicity and wide angles.
 
-### Fractal Pattern 5: Basic Fractal Tree
+### Changing Max Branches
 
-![Fractal Tree](images/example.png)
+#### Fractal Tree 4:
+
+![Fractal Tree 4](images/FractalTree_4.png)
 
 - **Parameters**:
-  - `angle_change`: 30°
-  - `length_scaling_factor`: 0.7
-  - `recursion_depth`: 5
+  - `recursion_depth`: 7
+  - `max_branches`: 6
 - **Observations**:
-  - The fractal tree exhibits symmetry and balance.
-  - As the recursion depth increases, the level of detail in the branches increases.
+  - The tree has a balanced and moderately dense branching pattern.
+  - As recursion depth increases, the branches fill out, but still retain an airy and light structure.
+
+#### Fractal Tree 5:
+
+![Fractal Tree 5](images/FractalTree_5.png)
+
+- **Parameters**:
+  - `recursion_depth`: 7
+  - `max_branches`: 2
+- **Observations**:
+  - This shape resembles the early stages of growth, capturing an essence of initial branching.
+  - The tree is minimalistic, with few branches.
 
 ---
 
