@@ -169,7 +169,9 @@ The recursion ends when the depth reaches zero, producing a finite fractal. By a
 
 ## References
 
-- **Shapely Manual**: [https://shapely.readthedocs.io/en/stable/manual.html](https://shapely.readthedocs.io/en/stable/manual.html)
-- **Matplotlib Pyplot Tutorial**: [https://matplotlib.org/stable/tutorials/introductory/pyplot.html](https://matplotlib.org/stable/tutorials/introductory/pyplot.html)
+- Setting Random Seed: [Python Random seed() Method](https://www.w3schools.com/python/ref_random_seed.asp)
+- Shapely Manual: [LineString Geometry](https://shapely.readthedocs.io/en/2.0.3/manual.html#linestrings)
+- Shapely Manual: [Geometric Objects](https://shapely.readthedocs.io/en/2.0.3/manual.html#geometric-objects)
+- Matplotlib Documentation: [Colormaps](https://matplotlib.org/stable/users/explain/colors/colormaps.html#colormaps)
 
 ---
