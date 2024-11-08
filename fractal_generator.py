@@ -1,87 +1,58 @@
 """
 Assignment 2: Fractal Generator
 
-Author: Your Name
+Author: Rie Pilgaard Christiansen
 
 Description:
 This script generates fractal patterns using recursive functions and geometric transformations.
 """
 
-# Import necessary libraries
-import math
+# Importing libraries for plotting and geometry manipulation
 import matplotlib.pyplot as plt
+import numpy as np
 from shapely.geometry import LineString
-from shapely.affinity import rotate, translate
-import random
 
-# Global list to store all line segments
-line_list = []
+# Define the initial parameters for the fractal tree structure
+start_x, start_y = 0, 0       # Starting coordinates at the origin (base of the tree)
+initial_angle = 90            # Starting angle in degrees; 90 points the initial branch upward
+length = 10                   # Initial length of the first branch segment
+recursion_depth = 7           # Maximum recursion depth, controlling the "height" and complexity of the tree
+angle_change = 30             # Fixed angle for each branch, creating a symmetrical spread
+length_scaling_factor = 0.7   # Fixed factor to reduce branch length at each recursion level
 
-def generate_fractal(start_point, angle, length, depth, max_depth, angle_change, length_scaling_factor):
-    """
-    Recursive function to generate fractal patterns.
-
-    Parameters:
-    - start_point: Tuple (x, y), starting coordinate.
-    - angle: Float, current angle in degrees.
-    - length: Float, length of the current line segment.
-    - depth: Int, current recursion depth.
-    - max_depth: Int, maximum recursion depth.
-    - angle_change: Float, angle change at each recursion.
-    - length_scaling_factor: Float, scaling factor for the length.
-    """
-    if depth > max_depth:
+# Recursive function to draw fractal branches; uses Shapely for line geometry
+def draw_branch(x, y, direction, length, depth):
+    # Base case for recursion: if depth reaches zero, stop drawing branches
+    if depth == 0:
         return
 
-    # Calculate the end point of the line segment
-    end_x = start_point[0] + length * math.cos(math.radians(angle))
-    end_y = start_point[1] + length * math.sin(math.radians(angle))
-    end_point = (end_x, end_y)
+    # Calculate the end point of the current branch segment using trigonometry
+    # np.cos and np.sin calculate horizontal and vertical components
+    end_x = x + length * np.cos(direction)
+    end_y = y + length * np.sin(direction)
 
-    # Create a line segment using Shapely
-    line = LineString([start_point, end_point])
-    line_list.append(line)
+    # Define a line segment from (x, y) to (end_x, end_y) using Shapely's LineString
+    line = LineString([(x, y), (end_x, end_y)])
 
-    # Update the length for the next recursion
+    # Plot the current branch
+    plt.plot(*line.xy, color='black')  # Unpack x and y coordinates of the line
+ 
+    # Calculate the length of new branches at this recursion level
     new_length = length * length_scaling_factor
 
-    # Increment depth
-    next_depth = depth + 1
+    # Recursively draw two branches from the current endpoint with modified direction and reduced length
+    # Draw left branch with a negative angle change
+    draw_branch(end_x, end_y, direction + np.radians(-angle_change), new_length, depth - 1)
+    # Draw right branch with a positive angle change
+    draw_branch(end_x, end_y, direction + np.radians(angle_change), new_length, depth - 1)
 
-    # Recursive calls for branches
-    generate_fractal(end_point, angle + angle_change, new_length, next_depth, max_depth, angle_change, length_scaling_factor)
-    generate_fractal(end_point, angle - angle_change, new_length, next_depth, max_depth, angle_change, length_scaling_factor)
+# Set up the plot for visualizing the fractal tree pattern
+plt.figure(figsize=(8, 8))  # Define the size of the figure (canvas)
+plt.axis('equal')  # Set equal scaling for x and y axes to maintain aspect ratio of branches
+plt.axis('off')  # Hide plot axes for a cleaner look
 
-# Main execution
-if __name__ == "__main__":
-    # Parameters
-    start_point = (0, 0)
-    initial_angle = 90
-    initial_length = 100
-    recursion_depth = 0
-    max_recursion_depth = 5
-    angle_change = 30
-    length_scaling_factor = 0.7
+# Start drawing the fractal tree from the starting point and initial angle
+draw_branch(start_x, start_y, np.radians(initial_angle), length, recursion_depth)
 
-    # Clear the line list
-    line_list.clear()
-
-    # Generate the fractal
-    generate_fractal(start_point, initial_angle, initial_length, recursion_depth, max_recursion_depth, angle_change, length_scaling_factor)
-
-    # Visualization
-    fig, ax = plt.subplots()
-    for line in line_list:
-        x, y = line.xy
-        ax.plot(x, y, color='green', linewidth=1)
-
-    # Optional: Customize the plot
-    ax.set_aspect('equal')
-    plt.axis('off')
-    plt.show()
-
-    # Save the figure
-    fig.savefig('images/fractal_tree.png', dpi=300, bbox_inches='tight')
-
-    # Repeat the process with different parameters for additional fractals
-    # ...
+# Display the final fractal pattern
+plt.show() 
